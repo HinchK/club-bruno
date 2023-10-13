@@ -1,0 +1,72 @@
+---
+// src/pages/upload.astro
+
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Upload Image">
+    <form method="post" enctype="multipart/form-data">
+        <label>
+            Upload image:
+            <input type="file" name="image" required />
+        </label>
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        const form = document.querySelector('form')
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const file = form.elements.image.files[0]
+
+            // TODO: Upload file to server
+
+            form.reset()
+            return false
+        })
+    </script>
+</Layout>
+
+<script>
+const uploadImage = async (file) => {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  try {
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    })
+
+    if(!response.ok) {
+      throw new Error(response.statusText)
+    }
+
+    return await response.json()
+
+  } catch(error) {
+    console.error(error)
+  }
+}
+
+const form = document.querySelector('form')
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const file = form.elements.image.files[0]
+
+  const result = await uploadImage(file)
+
+  if(result.success) {
+    // Image uploaded successfully
+    console.log(result.message)
+  }
+
+  form.reset()
+  return false
+})
+</script>
+
