@@ -9,8 +9,9 @@ Say hello to **Multiverse**, a slick, one-page gallery design with a fully funct
 To get started with Astro Multiverse, follow these steps:
 
 ```bash
-git clone https://github.com/AREA44/astro-multiverse
-cd astro-multiverse
+git clone https://github.com/hinchk/club-bruno
+
+cd club-bruno
 pnpm install
 pnpm dev
 ```
